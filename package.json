@@ -1,0 +1,32 @@
+{
+  "name": "fb-search-gui",
+  "version": "1.0.0",
+  "description": "Search over Facebook with this simply graphical user interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pilotpirxie/node-fb-search-gui.git"
+  },
+  "keywords": [
+    "fb",
+    "search",
+    "location",
+    "graph",
+    "api",
+    "keyword"
+  ],
+  "author": "pilotpirxie",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/pilotpirxie/node-fb-search-gui/issues"
+  },
+  "homepage": "https://github.com/pilotpirxie/node-fb-search-gui#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "gulp-sass": "^3.1.0"
+  }
+}
