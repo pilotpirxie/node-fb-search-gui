@@ -9,7 +9,7 @@ class GraphController {
      * Constructor
      * @param {string} accessToken An access token valid for specific type of requests
      */
-    constructor() {
+    constructor(accessToken) {
         this.accessToken = accessToken;
     }
 

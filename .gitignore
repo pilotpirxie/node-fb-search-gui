@@ -10,6 +10,7 @@ public/assets/
 
 # Configuration IDs
 config/auth.js
+config/database.js
 
 # Runtime data
 pids
