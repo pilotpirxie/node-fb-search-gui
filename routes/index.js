@@ -17,7 +17,8 @@ passport.use(new FacebookStrategy({
 ));
 
 router.get('/', (req, res) => {
-    res.redirect('/login');
+    // res.redirect('/login');
+    res.send('test');
 });
 
 router.get('/auth/facebook/callback', (req, res) => {
