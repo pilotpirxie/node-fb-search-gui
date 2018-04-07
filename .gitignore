@@ -11,6 +11,7 @@ yarn-error.log*
 # SSL
 config/server.crt
 config/server.key
+config/ssl.js
 
 # Theme
 public/assets/

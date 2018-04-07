@@ -4,27 +4,46 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const authSettings = require('../config/auth.js');
 
+// facebook strategy settings
 passport.use(new FacebookStrategy({
     clientID: authSettings.facebookAuth.appID,
     clientSecret: authSettings.facebookAuth.appSecret,
     callbackURL: authSettings.facebookAuth.callbackURL,
     profileFields: authSettings.facebookAuth.profileFields
-
   },
-  function(accessToken, refreshToken, profile, cb) {
-      console.log(accessToken, refreshToken, profile);
+  function(accessToken, refreshToken, profile, callback) {
+      // console.log(profile._raw);
+      callback();
   }
 ));
 
-router.get('/', (req, res) => {
-    // res.redirect('/login');
-    res.send('test');
+// check authentication
+function authenticate (req, res, next) {
+    if ( typeof req.session.userID != 'undefined' && req.session.userID ) {
+        next();
+    } else {
+        res.redirect('login');
+    }
+}
+
+// home page
+router.get('/', authenticate, (req, res) => {
+    res.render('index');
 });
 
-router.get('/auth/facebook/callback', (req, res) => {
+// fb callback
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { session: true, successRedirect: '/', failureRedirect: '/' }), function (req, res) {
     res.redirect('/');
 });
 
-router.get('/login', passport.authorize('facebook'));
+// sign in button
+router.get('/auth/facebook', passport.authenticate('facebook', function (err, user, info) {
+    console.log(user);
+}));
+
+// sign in page
+router.get('/login/', (req, res) => {
+    res.render('login');
+});
 
 module.exports = router;

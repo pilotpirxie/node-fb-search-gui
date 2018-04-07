@@ -16,6 +16,10 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: false
+    },
+    shortAccessToken: {
+        type: String,
+        required: true
     }
 });
 
