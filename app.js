@@ -34,6 +34,7 @@ app.use(flash());
 
 // routing
 app.use('/', require('./routes/index.js'));
+app.use('/auth/', require('./routes/login.js'));
 
 // server
 const server = https.createServer(expressOptions, app).listen(app.get('port'), function(){
