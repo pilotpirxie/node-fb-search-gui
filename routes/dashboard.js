@@ -6,17 +6,17 @@ function isLogged(req, res, next) {
   if (req.session.profile) {
       return next();
   }
-  res.redirect('login');
+  res.redirect('/../login');
 }
 
 // sign in page
 router.get('/', isLogged, (req, res) => {
-    res.redirect('/dashboard/');
+    res.render('index');
 });
 
-// sign in page
-router.get('/login/', (req, res) => {
-    res.redirect('auth');
+router.get('/*', isLogged, (req, res) => {
+    res.redirect('/');
 });
+
 
 module.exports = router;
