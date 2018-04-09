@@ -19,4 +19,10 @@ router.get('/login/', (req, res) => {
     res.redirect('auth');
 });
 
+// logout
+router.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('login');
+});
+
 module.exports = router;
