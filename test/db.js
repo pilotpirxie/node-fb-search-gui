@@ -8,9 +8,11 @@ const User = require('../models/users');
 describe('User', function() {
     it('Add new user', () => {
         User.create({
-            socialID: '123123123123',
-            name: 'John Doe',
-            email: 'john@doe.com'
+            createDate: (new Date()),
+            socialID: '1234',
+            name: 'John',
+            email: 'test@asd.asd',
+            shortAccessToken: 'asdasd',
         }).then(user => {
             console.log(user);
         });

@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const authSettings = require('../config/auth');
-const userController = require('../controllers/UsersController');
+const user = require('../controllers/UsersController');
 
 // facebook strategy settings
 passport.use(new FacebookStrategy({
@@ -14,13 +14,25 @@ passport.use(new FacebookStrategy({
     passReqToCallback: true
   },
   function(req, accessToken, refreshToken, profile, cb) {
-      // console.log(profile._raw);
-      req.session.profile = profile._raw;
-      process.nextTick(function () {
-        return cb(null, profile);
-      });
-  }
-));
+      console.log(profile.id);
+      if ( user.exist({socialID: ''+profile.id}, (count, users) => {
+          if ( count > 0 ) {
+              console.log('User exist', users);
+              req.session.profile = users[0];
+              process.nextTick(function () {
+                return cb(null, profile);
+              });
+          } else {
+              console.log('User not exist');
+              user.register(profile._raw, accessToken, (user) => {
+                  req.session.profile = user;
+                  process.nextTick(function () {
+                    return cb(null, profile);
+                  });
+              });
+          }
+      }));
+  }));
 
 passport.serializeUser(function(user, cb) {
   cb(null, user);
@@ -47,7 +59,7 @@ router.get('/facebook/callback', passport.authenticate('facebook', { session: tr
 });
 
 // sign in button
-router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook', {scope: ['email']}));
 
 // sign in page
 router.get('/', (req, res) => {
