@@ -15,7 +15,7 @@ passport.use(new FacebookStrategy({
   },
   function(req, accessToken, refreshToken, profile, cb) {
       console.log(profile.id);
-      if ( user.exist({socialID: ''+profile.id}, (count, users) => {
+      if ( user.count({socialID: ''+profile.id}, (count, users) => {
           if ( count > 0 ) {
               console.log('User exist', users);
               req.session.profile = users[0];

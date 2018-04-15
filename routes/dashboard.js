@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const report = require('../controllers/ReportsController');
 
 // check authentication
 function isLogged(req, res, next) {
@@ -42,6 +43,16 @@ router.get('/help', isLogged, (req, res) => {
 // logout
 router.get('/logout', (req, res) => {
   res.redirect('/../logout');
+});
+
+// new report
+router.post('/worker/report', isLogged, (req, res) => {
+    report.add(req.body.params).then((report) => {
+        console.log(report);
+        res.redirect('/dashboard/?info=success');
+    }).catch((err) => {
+        console.log(err);
+    });
 });
 
 router.get('/*', isLogged, (req, res) => {

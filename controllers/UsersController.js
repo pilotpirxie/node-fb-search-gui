@@ -27,11 +27,11 @@ module.exports = {
 
     /**
      * Search for user in database and return count of occurencies
-     * @param  {object} userFields Fields to search user(s), e.g. ID or socialID 
+     * @param  {object} userFields Fields to search user(s), e.g. ID or socialID
      * @param  {function} callback Callback
      * @return {number} Length of returned array
      */
-    exist: function (userFields, callback) {
+    count: function (userFields, callback) {
         User.find(userFields, (err, users) => {
             callback(users.length, users);
         });
