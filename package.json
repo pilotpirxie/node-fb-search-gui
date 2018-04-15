@@ -4,7 +4,7 @@
   "description": "Search over Facebook with this simply graphical user interface",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "serve": "nodemon -e js,md,css,json,scss,hbs"
   },
   "repository": {
