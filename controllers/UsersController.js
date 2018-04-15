@@ -20,7 +20,6 @@ module.exports = {
             shortAccessToken: accessToken,
         };
         User.create(userFields).then(user => {
-            console.log(user);
             callback(user);
         });
     },

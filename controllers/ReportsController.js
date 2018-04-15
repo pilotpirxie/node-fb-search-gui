@@ -4,10 +4,25 @@ mongoose.connect(databaseConfig.mongourl);
 const Report = require('../models/reports');
 
 module.exports = {
+    /**
+     * Create new report
+     * @param  {req.body} reportFields Data from form inputs
+     * @return {object} report Object of report inserted into db or error
+     */
     add: function (reportFields) {
         return new Promise((resolve,reject) => {
-            console.log(reportFields);
-            resolve({test:'test'});
+            let newReportsObj = {
+                createDate: (new Date()),
+                keywords: reportFields.keywords,
+                range: reportFields.range,
+                coordinates: reportFields.coordinates,
+                params: []
+            };
+            Report.create(newReportsObj).then(report => {
+                resolve(report);
+            }).catch(err => {
+                reject(err);
+            });
         });
     }
 };

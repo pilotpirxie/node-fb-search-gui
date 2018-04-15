@@ -47,11 +47,12 @@ router.get('/logout', (req, res) => {
 
 // new report
 router.post('/worker/report', isLogged, (req, res) => {
-    report.add(req.body.params).then((report) => {
+    report.add(req.body).then((report) => {
         console.log(report);
         res.redirect('/dashboard/?info=success');
     }).catch((err) => {
         console.log(err);
+        res.redirect('/dashboard/?info=error');
     });
 });
 

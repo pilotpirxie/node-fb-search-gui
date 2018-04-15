@@ -57,19 +57,19 @@
                         <form method="post" action="./worker/report">
                           <div class="form-group">
                             <label>Keywords separated by comma</label>
-                            <input required type="text" class="form-control" id="keywords" placeholder="Keywords e.g. hairdresser,hair,beauty">
+                            <input required type="text" class="form-control" name="keywords" placeholder="Keywords e.g. hairdresser,hair,beauty">
                           </div>
                           <div class="form-group">
                             <label>Range to search in kilometers</label>
-                            <input required type="number" class="form-control" min="1" max="25" id="range" value="3" placeholder="e.g. 3">
+                            <input required type="number" class="form-control" min="1" max="25" name="range" value="3" placeholder="e.g. 3">
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail1">Pick place to search</label>
-                            <div id="map" class="map" tabindex="0"></div>
+                            <div name="map" id="map" class="map" tabindex="0"></div>
                             <div style="width: 200px;">
                               <div id="popup" title="Pick position">.</div>
                             </div>
-                            <input type="hidden" class="form-control" id="coordinates" hidden>
+                            <input type="hidden" class="form-control" id="coordinates" name="coordinates" hidden>
                           </div>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
