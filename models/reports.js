@@ -19,6 +19,10 @@ const ReportSchema = new Schema({
     params: {
         type: String,
         required: false
+    },
+    quotaLimit: {
+        type: Number,
+        required: true
     }
 });
 

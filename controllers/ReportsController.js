@@ -14,9 +14,9 @@ module.exports = {
             let newReportsObj = {
                 createDate: (new Date()),
                 keywords: reportFields.keywords,
-                range: reportFields.range,
                 coordinates: reportFields.coordinates,
-                params: []
+                params: {range: reportFields.range},
+                quotaLimit: 25
             };
             Report.create(newReportsObj).then(report => {
                 resolve(report);

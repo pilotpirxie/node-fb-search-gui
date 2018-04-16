@@ -6,6 +6,10 @@ const PageSchema = new Schema({
         type: Date,
         required: [true, 'Date is required']
     },
+    reportID: {
+        type: Number,
+        required: [true, "Report ID is required"]
+    },
     pageID: {
         type: String,
         required: [true, 'Page ID is required'],

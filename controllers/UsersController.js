@@ -17,7 +17,7 @@ module.exports = {
             socialID: '' + socialFields.id,
             name: socialFields.first_name + ' ' + socialFields.last_name,
             email: socialFields.email,
-            shortAccessToken: accessToken,
+            shortAccessToken: accessToken
         };
         User.create(userFields).then(user => {
             callback(user);
