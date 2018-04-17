@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReportSchema = new Schema({
+    userID: {
+        type: String,
+        required: [true, 'User ID is required']
+    },
     createDate: {
         type: Date,
         required: [true, 'Date is required']
@@ -17,7 +21,7 @@ const ReportSchema = new Schema({
         trim: true
     },
     params: {
-        type: String,
+        type: Object,
         required: false
     },
     quotaLimit: {

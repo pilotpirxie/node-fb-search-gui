@@ -9,10 +9,11 @@ module.exports = {
      * @param  {req.body} reportFields Data from form inputs
      * @return {object} report Object of report inserted into db or error
      */
-    add: function (reportFields) {
+    add: function (reportFields,userID) {
         return new Promise((resolve,reject) => {
             let newReportsObj = {
                 createDate: (new Date()),
+                userID: userID,
                 keywords: reportFields.keywords,
                 coordinates: reportFields.coordinates,
                 params: {range: reportFields.range},

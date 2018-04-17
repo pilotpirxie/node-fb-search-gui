@@ -7,7 +7,7 @@ const PageSchema = new Schema({
         required: [true, 'Date is required']
     },
     reportID: {
-        type: Number,
+        type: String,
         required: [true, "Report ID is required"]
     },
     pageID: {

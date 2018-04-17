@@ -19,7 +19,7 @@ describe('User', function() {
             console.log(user);
             assert.typeOf(user, 'object');
         }).catch(err => {
-            console.log(err);
+            assert.fail(err, `Something goes wrong ${err}`);
         });
       });
 });
@@ -27,16 +27,18 @@ describe('User', function() {
 describe('Report', function() {
     it('Add new report', () => {
         Report.create({
+            userID: '901230192301923-123123-123',
             createDate: (new Date()),
             keywords: 'test,keywords',
             range: '3',
             coordinates: '52.295042284537345;-6.328125',
-            params: []
+            params: {},
+            quotaLimit: 25
         }).then(report => {
             console.log(report);
             assert.typeOf(report, 'object');
         }).catch(err => {
-            console.log(err);
+            assert.fail(err, `Something goes wrong ${err}`);
         });
       });
 });
@@ -59,7 +61,7 @@ describe('Page', function() {
             console.log(page);
             assert.typeOf(page, 'object');
         }).catch(err => {
-            console.log(err);
+            assert.fail(err, `Something goes wrong ${err}`);
         });
       });
 });

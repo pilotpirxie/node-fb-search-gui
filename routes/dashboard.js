@@ -47,7 +47,7 @@ router.get('/logout', (req, res) => {
 
 // new report
 router.post('/worker/report', isLogged, (req, res) => {
-    report.add(req.body).then((report) => {
+    report.add(req.body, req.session.profile._id).then((report) => {
         console.log(report);
         res.redirect('/dashboard/?info=success');
     }).catch((err) => {
