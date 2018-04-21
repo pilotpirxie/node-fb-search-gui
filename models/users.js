@@ -16,8 +16,16 @@ const UserSchema = new Schema({
         required: [true, 'Login field is required'],
         trim: true
     },
+    invoiceInformation: {
+        type: String,
+        required: false,
+    },
     email: {
         type: String,
+        required: false
+    },
+    newsletter: {
+        type: Boolean,
         required: false
     },
     shortAccessToken: {

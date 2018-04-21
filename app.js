@@ -42,6 +42,17 @@ app.use('/', require('./routes/index.js'));
 app.use('/dashboard/', require('./routes/dashboard.js'));
 app.use('/auth/', require('./routes/login.js'));
 
+// error handling
+app.use('*', (req, res) => {
+    res.status(404).send('404 - Not found');
+});
+app.use(function (err, req, res, next) {
+    if ( err ) {
+        console.error(err.stack);
+        res.status(500).send('500 - Oh no! Something broke! Contact us at contact@leadmaker.online');
+    }
+});
+
 // server
 const server = https.createServer(expressOptions, app).listen(app.get('port'), function(){
     console.log(`App is listening on port ${server.address().port}!`);

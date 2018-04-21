@@ -34,5 +34,36 @@ module.exports = {
         User.find(userFields, (err, users) => {
             callback(users.length, users);
         });
+    },
+
+    /**
+     * Get user fields from db
+     * @param  {object} userFields Some old fields in db to match user(s)
+     * @return {promise}
+     */
+    get: function (userFields) {
+        return new Promise ((resolve, reject) => {
+            User.find(userFields).then(users => {
+                resolve(users);
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+    
+    /**
+     * Change user fields in db
+     * @param  {object} userFields Some old fields in db to match user(s)
+     * @param  {object} newFields New fields in db
+     * @return {promise}
+     */
+    change: function (userFields, newFields) {
+        return new Promise ((resolve, reject) => {
+            User.findByIdAndUpdate(userFields, newFields).then(user => {
+                resolve(user);
+            }).catch(err => {
+                reject(err);
+            });
+        });
     }
 };

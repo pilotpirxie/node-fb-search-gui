@@ -4,6 +4,12 @@ mongoose.connect(databaseConfig.mongourl);
 const Page = require('../models/pages');
 
 module.exports = {
+    /**
+     * Add new fanpage
+     * @param  {object} pageFields Object that contains information about fanpage 
+     * @param  {number} reportID ID of relative report
+     * @return {promise}
+     */
     addPage: function (pageFields, reportID) {
         return new Promise((resolve,reject) => {
             let newPageObj = {
