@@ -12,7 +12,11 @@
                         <h4 class="panel-title">Invoices</h4>
                     </div>
                     <div class="panel-body">
-
+                        <ul class="list-group">
+                            {{#each invoices}}
+                                <a href="{{this.downloadURL}}"><li class="list-group-item"> <b>{{this.paymentStatus}} (${{this.amount}})</b><span class="badge badge-info" style="background-color: #0369d0;">{{this.createDate}}</span></li></a>
+                            {{/each}}
+                        </ul>
                     </div>
                 </div>
             </div>

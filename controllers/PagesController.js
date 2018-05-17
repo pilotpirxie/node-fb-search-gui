@@ -6,7 +6,7 @@ const Page = require('../models/pages');
 module.exports = {
     /**
      * Add new fanpage
-     * @param  {object} pageFields Object that contains information about fanpage 
+     * @param  {object} pageFields Object that contains information about fanpage
      * @param  {number} reportID ID of relative report
      * @return {promise}
      */

@@ -7,9 +7,10 @@ module.exports = {
     /**
      * Create new report
      * @param  {req.body} reportFields Data from form inputs
+     * @param  {number} userID ID of relative user
      * @return {object} report Object of report inserted into db or error
      */
-    add: function (reportFields,userID) {
+    add: function (reportFields, userID) {
         return new Promise((resolve,reject) => {
             let newReportsObj = {
                 createDate: (new Date()),

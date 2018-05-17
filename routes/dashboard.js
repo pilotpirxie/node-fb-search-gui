@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const report = require('../controllers/ReportsController');
 const user = require('../controllers/UsersController');
+const invoice = require('../controllers/InvoicesController');
 
 // check authentication
 function isLogged(req, res, next) {
@@ -56,7 +57,13 @@ router.get('/upgrade', isLogged, (req, res) => {
 
 // invoices
 router.get('/invoices', isLogged, (req, res) => {
-    res.render('invoices');
+    invoice.getAll(req.session.profile._id).then(invoices => {
+        res.render('invoices', {invoices: invoices});
+    }).catch(err => {
+        console.log(err);
+        res.redirect('/dashboard/?info=invoices-error');
+    });
+
 });
 
 // help

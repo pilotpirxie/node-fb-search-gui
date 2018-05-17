@@ -5,6 +5,7 @@ const databaseConfig = require('../config/database.js');
 mongoose.connect(databaseConfig.mongourl);
 const User = require('../models/users');
 const Report = require('../models/reports');
+const Invoice = require('../models/invoices');
 const Page = require('../models/pages');
 
 describe('User', function() {
@@ -37,6 +38,24 @@ describe('Report', function() {
         }).then(report => {
             console.log(report);
             assert.typeOf(report, 'object');
+        }).catch(err => {
+            assert.fail(err, `Something goes wrong ${err}`);
+        });
+      });
+});
+
+describe('Invoice', function() {
+    it('Add new invoice', () => {
+        Invoice.create({
+            createDate: (new Date()),
+            userID: '5ad666cab2ef432c24827b72',
+            downloadURL: 'https://',
+            amount: '32 ',
+            paymentID: '123128312-3-123-123',
+            paymentStatus: 'PENDING'
+        }).then(invoice => {
+            console.log(invoice);
+            assert.typeOf(invoice, 'object');
         }).catch(err => {
             assert.fail(err, `Something goes wrong ${err}`);
         });
