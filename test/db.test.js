@@ -32,8 +32,12 @@ describe('Report', function() {
             createDate: (new Date()),
             keywords: 'test,keywords',
             range: '3',
-            coordinates: '52.295042284537345;-6.328125',
-            params: {},
+            status: false,
+            params: {
+                range: '25',
+                lon: 52.295042284537345,
+                lat: -6.328125
+            },
             quotaLimit: 25
         }).then(report => {
             console.log(report);
@@ -52,7 +56,7 @@ describe('Invoice', function() {
             downloadURL: 'https://',
             amount: '32 ',
             paymentID: '123128312-3-123-123',
-            paymentStatus: 'PENDING'
+            paymentStatus: false
         }).then(invoice => {
             console.log(invoice);
             assert.typeOf(invoice, 'object');

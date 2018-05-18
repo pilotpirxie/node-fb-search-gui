@@ -3,6 +3,7 @@ const router = express.Router();
 const report = require('../controllers/ReportsController');
 const user = require('../controllers/UsersController');
 const invoice = require('../controllers/InvoicesController');
+const reports = require('../controllers/ReportsController');
 
 // check authentication
 function isLogged(req, res, next) {
@@ -19,13 +20,20 @@ router.get('/', isLogged, (req, res) => {
 
 // history
 router.get('/history', isLogged, (req, res) => {
-    res.render('history');
+    reports.getAll(req.session.profile._id).then(reports => {
+        for(let report of reports) {
+            report.keywordsArray = report.keywords.split(',');
+        }
+        res.render('history', {reports: reports});
+    }).catch(err => {
+        console.log(err);
+        res.redirect('/dashboard/?info=reports-error');
+    });
 });
 
 // settings
 router.get('/settings', isLogged, (req, res) => {
     user.get({_id: req.session.profile._id}).then(userFound => {
-        console.log(userFound);
         userFound = userFound[0];
         res.render('settings', {invoiceInformation: userFound.invoiceInformation, contactName: userFound.name, newsletter: userFound.newsletter});
     }).catch(err => {
@@ -63,7 +71,6 @@ router.get('/invoices', isLogged, (req, res) => {
         console.log(err);
         res.redirect('/dashboard/?info=invoices-error');
     });
-
 });
 
 // help
@@ -77,14 +84,22 @@ router.get('/logout', (req, res) => {
 });
 
 // new report
-router.post('/worker/add', isLogged, (req, res) => {
-    report.add(req.body, req.session.profile._id).then((report) => {
-        console.log(report);
-        res.redirect('/dashboard/?info=success');
-    }).catch((err) => {
-        console.log(err);
-        res.redirect('/dashboard/?info=error');
-    });
+router.post('/report/add', isLogged, (req, res) => {
+    if ( typeof req.body.coordinates === 'string' && req.body.coordinates.length > 0 ) {
+        if (req.body.keywords.replace(/[^\w.-]/g, '').length > 2){
+            report.add(req.body, req.session.profile._id).then((report) => {
+                console.log(report);
+                res.redirect('/dashboard/?info=success');
+            }).catch((err) => {
+                console.log(err);
+                res.redirect('/dashboard/?info=error');
+            });
+        } else {
+            res.redirect('/dashboard/?info=keywords-error');
+        }
+    } else {
+        res.redirect('/dashboard/?info=missing-error');
+    }
 });
 
 router.get('/*', isLogged, (req, res) => {

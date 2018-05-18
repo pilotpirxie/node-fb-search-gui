@@ -14,7 +14,18 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             {{#each invoices}}
-                                <a href="{{this.downloadURL}}"><li class="list-group-item"> <b>{{this.paymentStatus}} (${{this.amount}})</b><span class="badge badge-info" style="background-color: #0369d0;">{{this.createDate}}</span></li></a>
+                                <a href="{{this.downloadURL}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            {{#if this.paymentStatus}}
+                                                <span class="badge bg-primary">DONE</span>
+                                            {{else}}
+                                                <span class="badge bg-warning">PENDING</span>
+                                            {{/if}}
+                                            {{this.createDate}} - ${{this.amount}}
+                                        </h5>
+                                    </div>
+                                </a>
                             {{/each}}
                         </ul>
                     </div>

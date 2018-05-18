@@ -26,7 +26,7 @@ const InvoiceSchema = new Schema({
         trim: true
     },
     paymentStatus: {
-        type: String,
+        type: Boolean,
         required: [true, 'Payment status is required']
     }
 });

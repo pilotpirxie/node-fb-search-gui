@@ -15,14 +15,14 @@ const ReportSchema = new Schema({
         required: [true, 'Keywords are required'],
         trim: true
     },
-    coordinates: {
-        type: String,
-        required: [true, 'Long and Lat coordinates are required'],
+    status: {
+        type: Boolean,
+        required: [true, 'Crawler status'],
         trim: true
     },
     params: {
         type: Object,
-        required: false
+        required: true
     },
     quotaLimit: {
         type: Number,
