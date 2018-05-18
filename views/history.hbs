@@ -14,7 +14,7 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             {{#each reports}}
-                                <a href="details/{{this._id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <a href="details/{{this.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">
                                             {{#if this.status}}
@@ -27,8 +27,8 @@
                                         <small>{{this.params.lon}} {{this.params.lat}} ({{this.params.range}}km)</small>
                                     </div>
                                     <p class="mb-1">
-                                        {{#each this.keywordsArray}}
-                                            <span class="badge bg-primary">{{this}}</span>
+                                        {{#each this.keywords}}
+                                            {{this}}
                                         {{/each}}
                                     </p>
                                     <small></small>

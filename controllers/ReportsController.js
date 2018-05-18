@@ -37,13 +37,46 @@ module.exports = {
 
     /**
      * Get all reports for specific user
-     * @param  {number} uID User ID
+     * @param  {string} userID User ID
      * @return {array} Reports
      */
     getAll: function (userID) {
         return new Promise((resolve, reject) => {
             Report.find({userID: userID}).then(reports => {
-                resolve(reports.reverse());
+                var _reports = [];
+                for(let report of reports) {
+                    let _temp = {
+                        id: report._id,
+                        createDate: report.createDate.toLocaleString(),
+                        keywords: report.keywords.split(','),
+                        params: {
+                            range: report.params.range,
+                            lon: report.params.lon,
+                            lat: report.params.lat
+                        },
+                        status: report.status
+                    };
+                    _reports.push(_temp);
+                }
+                resolve(_reports.reverse());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+
+    /**
+     * Get one specific report
+     * @param {string} reportID ID of report to find
+     * @param  {number} userID User ID
+     * @return {object} Report
+     */
+    getSingle: function(reportID, userID) {
+        return new Promise((resolve, reject) => {
+            Report.findOne({userID: userID, _id: reportID}).then(report => {
+                report.keywordsArray = report.keywords.split(',');
+                report.viewDate = report.createDate.toLocaleString();
+                resolve(report);
             }).catch(err => {
                 reject(err);
             });

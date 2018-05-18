@@ -21,14 +21,21 @@ router.get('/', isLogged, (req, res) => {
 // history
 router.get('/history', isLogged, (req, res) => {
     reports.getAll(req.session.profile._id).then(reports => {
-        for(let report of reports) {
-            report.keywordsArray = report.keywords.split(',');
-        }
         res.render('history', {reports: reports});
     }).catch(err => {
         console.log(err);
         res.redirect('/dashboard/?info=reports-error');
     });
+});
+
+// details of reports
+router.get('/details/:reportID', isLogged, (req, res) => {
+    reports.getSingle(req.params.reportID, req.session.profile._id).then(report => {
+        res.render('details', {report: report});
+    }).catch(err => {
+        console.log(err);
+        res.redirect('/dashboard/?info=details-error');
+    })
 });
 
 // settings
