@@ -16,7 +16,15 @@ function isLogged(req, res, next) {
 
 // home
 router.get('/', isLogged, (req, res) => {
-    res.render('index');
+    // get reports and sum all fanpages
+    reports.getAll(req.session.profile._id).then(reports => {
+        pages.count(reports).then(pagesStats => {
+            res.render('index', {reportsCount: reports.length, fanpagesCount: pagesStats.countNumb, keywordsCount: pagesStats.keywordsNumb});
+        });
+    }).catch(err => {
+        console.log(err);
+        res.redirect('/history/?info=reports-error');
+    });
 });
 
 // history
@@ -33,7 +41,6 @@ router.get('/history', isLogged, (req, res) => {
 router.get('/details/:reportID', isLogged, (req, res) => {
     reports.getSingle(req.params.reportID, req.session.profile._id).then(report => {
         pages.getAll(report._id).then(pages => {
-            console.log(pages);
             res.render('details', {report: report, pages: pages});
         });
     }).catch(err => {

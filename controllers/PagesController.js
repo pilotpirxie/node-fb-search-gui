@@ -3,6 +3,14 @@ const databaseConfig = require('../config/database.js');
 mongoose.connect(databaseConfig.mongourl);
 const Page = require('../models/pages');
 
+// async for each loop
+// https://gist.github.com/Atinux/fd2bcce63e44a7d3addddc166ce93fb2
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
+}
+
 module.exports = {
     /**
      * Add new fanpage
@@ -46,5 +54,30 @@ module.exports = {
                 reject(err);
             });
         });
-    }
+    },
+
+    /**
+     * Get number of matching pages for specific report
+     * @param  {number} reportID ID of report
+     * @return {array}          Count number that match
+     */
+    count: function(reports) {
+        return new Promise((resolve, reject) => {
+            const start = async () => {
+                let fpCount = 0;
+                let fpKeywords = 0;
+                await asyncForEach(reports, async report => {
+                    let _keywords = report.keywords + '';
+                    fpKeywords += _keywords.split(',').length;
+                    await Page.count({reportID: report.id}).then(count => {
+                        fpCount += count;
+                    }).catch(err => {
+                        reject(err);
+                    });
+                });
+                resolve({countNumb: fpCount, keywordsNumb: fpKeywords});
+            }
+            start();
+        });
+    },
 };
