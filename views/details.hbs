@@ -24,25 +24,29 @@
                             {{/each}}
                         </p>
                         <hr>
+
+                        {{#each pages}}
                         <div class="card">
                             <div class="card-body">
                                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
-                                      <h5 class="mb-1"><a href="#" target="_blank"><i class="menu-icon fa fa-facebook"></i> <b>Fanpage Name</b></a></h5>
+                                      <h5 class="mb-1"><a href="https://facebook.com/{{this.pageID}}" target="_blank"><i class="menu-icon fa fa-facebook"></i> <b>{{this.name}}</b></a></h5>
                                     </div>
                                     <div class="media">
-                                      <img class="mr-3 img-responsive col-sm-2" src="https://mailchimp.com/assets/images/root/collage-sell-2x-2d075b5d.jpg" alt="Generic placeholder image">
+                                      <img class="mr-3 img-responsive col-sm-2" src="{{this.cover}}" alt="{{this.name}}">
                                       <div class="media-body">
-                                        <b>Fan count:</b> 12,634 likes
-                                        <br><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, officiis.
-                                        <br><b>Category:</b> Fashion
-                                        <br><b>Website:</b> https://example.com
+                                        <b>Fan count:</b> {{this.fanCount}} likes
+                                        <br><b>Talking about:</b> {{this.talkingAbout}}
+                                        <br><b>Description:</b> {{this.description}}
+                                        <br><b>Category:</b> {{this.category}}
+                                        <br><b>Website:</b> {{this.website}}
                                       </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+                        {{/each}}
+
                     </div>
                 </div>
             </div>

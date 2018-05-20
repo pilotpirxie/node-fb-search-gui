@@ -70,7 +70,7 @@ describe('Page', function() {
     it('Add new page', () => {
         Page.create({
             createDate: (new Date()),
-            reportID: '3453245345345-3245-3-45',
+            reportID: '5aff4bff78e1461f60a30179',
             pageID: '12312312391231-312-3-123-1-23',
             name: 'Test Restaurant',
             category: 'Food',

@@ -4,6 +4,7 @@ const report = require('../controllers/ReportsController');
 const user = require('../controllers/UsersController');
 const invoice = require('../controllers/InvoicesController');
 const reports = require('../controllers/ReportsController');
+const pages = require('../controllers/PagesController');
 
 // check authentication
 function isLogged(req, res, next) {
@@ -31,7 +32,10 @@ router.get('/history', isLogged, (req, res) => {
 // details of reports
 router.get('/details/:reportID', isLogged, (req, res) => {
     reports.getSingle(req.params.reportID, req.session.profile._id).then(report => {
-        res.render('details', {report: report});
+        pages.getAll(report._id).then(pages => {
+            console.log(pages);
+            res.render('details', {report: report, pages: pages});
+        });
     }).catch(err => {
         console.log(err);
         res.redirect('/dashboard/?info=details-error');

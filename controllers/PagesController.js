@@ -31,5 +31,20 @@ module.exports = {
                 reject(err);
             });
         });
+    },
+
+    /**
+     * Get all pages for specific report
+     * @param  {number} reportID ID of report
+     * @return {array}          Pages that match
+     */
+    getAll: function(reportID) {
+        return new Promise((resolve, reject) => {
+            Page.find({reportID: reportID}).then(pages => {
+                resolve(pages);
+            }).catch(err => {
+                reject(err);
+            });
+        });
     }
 };
