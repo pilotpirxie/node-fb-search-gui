@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const expressOptions = require('./config/ssl');
 const cookieSession = require('cookie-session');
+const graph = require('./controllers/GraphController');
 
 // handlebars settings
 const hbs = exphbs.create({
@@ -52,6 +53,10 @@ app.use(function (err, req, res, next) {
         res.status(500).send('500 - Oh no! Something broke! Contact us at contact@leadmaker.online');
     }
 });
+
+const cronJob = require('cron').CronJob;
+
+new cronJob('*/5 * * * * *', graph.cron(), null, true, 'America/Los_Angeles');
 
 // server
 const server = https.createServer(expressOptions, app).listen(app.get('port'), function(){

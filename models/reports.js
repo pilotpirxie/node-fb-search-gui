@@ -20,6 +20,10 @@ const ReportSchema = new Schema({
         required: [true, 'Crawler status'],
         trim: true
     },
+    workInProgress: {
+        type: Boolean,
+        required: [true, 'WIP status']
+    },
     params: {
         type: Object,
         required: true

@@ -33,6 +33,7 @@ describe('Report', function() {
             keywords: 'test,keywords',
             range: '3',
             status: false,
+            workInProgress: false,
             params: {
                 range: '25',
                 lon: 52.295042284537345,

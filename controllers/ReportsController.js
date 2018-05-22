@@ -25,6 +25,7 @@ module.exports = {
                     lat: reportFields.coordinates.split(';')[1]
                 },
                 status: false,
+                workInProgress: false,
                 quotaLimit: 25
             };
             Report.create(newReportsObj).then(report => {
@@ -77,6 +78,20 @@ module.exports = {
                 report.keywordsArray = report.keywords.split(',');
                 report.viewDate = report.createDate.toLocaleString();
                 resolve(report);
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+
+    /**
+     * Get unfinished report
+     * @return {object} Report
+     */
+    getQueue: function(report) {
+        return new Promise((resolve, reject) => {
+            Report.find({status: false}, null, {limit: 3}).sort('createDate').then(reports => {
+                resolve(reports);
             }).catch(err => {
                 reject(err);
             });
