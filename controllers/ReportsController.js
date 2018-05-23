@@ -96,5 +96,16 @@ module.exports = {
                 reject(err);
             });
         });
+    },
+
+    setStatus: function (reportID, finished) {
+        return new Promise ((resolve, reject) => {
+            Report.update({_id: reportID}, {status: finished}).then(report => {
+                resolve(report);
+            }).catch(err => {
+                reject(err);
+            });
+        });
     }
+
 };

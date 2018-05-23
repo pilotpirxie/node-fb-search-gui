@@ -50,7 +50,7 @@ module.exports = {
             });
         });
     },
-    
+
     /**
      * Change user fields in db
      * @param  {object} userFields Some old fields in db to match user(s)

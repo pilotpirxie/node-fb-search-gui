@@ -56,7 +56,9 @@ app.use(function (err, req, res, next) {
 
 const cronJob = require('cron').CronJob;
 
-new cronJob('*/5 * * * * *', graph.cron(), null, true, 'America/Los_Angeles');
+new cronJob('*/15 * * * * *', () => {
+    graph.cron();
+}, null, true, 'America/Los_Angeles');
 
 // server
 const server = https.createServer(expressOptions, app).listen(app.get('port'), function(){
