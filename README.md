@@ -4,6 +4,7 @@ Search over Facebook with this simply graphical user interface
 
 
 ### Setup
+#### facebook-passport
 ```js
 // config/auth.js
 module.exports = {
@@ -16,14 +17,14 @@ module.exports = {
     }
 };
 ```
-
+#### mongoose
 ```js
 // config/database.js
 module.exports = {
     "mongourl":"mongodb://user:password@host/database"
 };
 ```
-
+#### ssl
 ```js
 // config/ssl.js
 module.exports = {
@@ -34,6 +35,7 @@ module.exports = {
 };
 ```
 
+#### dotenv
 ```
 // .env
 # Default
@@ -50,7 +52,7 @@ FB_ACCESS_TOKEN = YOUR_ACCESS_TOKEN_HERE
 SESSION_SECRET = BYYm65nABSDB4
 ```
 
-### Assets:
+### Assets
 [Space](https://elements.envato.com/space-responsive-admin-dashboard-template-A9REUB) - purchase and unzip assets folder into public/assets
 
 ### License
