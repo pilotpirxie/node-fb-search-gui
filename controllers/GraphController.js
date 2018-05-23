@@ -47,48 +47,41 @@ module.exports = {
 
                 // get user associated with report
                 users.get({_id: _report.userID}).then(user => {
+                    for ( let _keyword of _report.keywords.split(',') ) {
+                        // retrieve information from graph facebook
+                        // about fanpages and places
+                        this.retrieve(`https://graph.facebook.com/v3.0/search?type=place&q=${_keyword}&center=${_report.params.lon},${_report.params.lat}&distance=${_distance}&fields=category_list,name,about,cover,fan_count,description,link,checkins,picture`, user[0].shortAccessToken).then(data => {
 
-                    // retrieve information from graph facebook
-                    // about fanpages and places
-                    this.retrieve(`https://graph.facebook.com/v3.0/search?type=place&q=cafe&center=${_report.params.lon},${_report.params.lat}&distance=${_distance}&fields=category_list,name,about,cover,fan_count,description,link,checkins,picture`, user[0].shortAccessToken).then(data => {
+                            // check if returned data is correct
+                            let _parsedResponse = JSON.parse(data);
+                            if ( _parsedResponse.hasOwnProperty('data') ){
 
-                        // check if returned data is correct
-                        let _parsedResponse = JSON.parse(data);
-                        if ( _parsedResponse.hasOwnProperty('data') ){
-
-                            // get all pages from current response
-                            for ( let place of _parsedResponse.data ) {
-                                console.log('-------------');
-                                console.log(place);
-                                pages.addPage({
-                                    pageID: 'undefined',
-                                    name: place.name,
-                                    category: place.category_list[0].name,
-                                    cover: place.cover.source,
-                                    description: place.description,
-                                    website: place.link,
-                                    fanCount: 0,
-                                    talkingAbout: 0,
-                                    checking: place.checkins
-                                }, _report.id).then(()=>{
-                                    console.log('Inserted new page for report', _report.id);
-                                }).catch(err => {
-                                    console.log(err);
-                                });
-                            }
-
-                            if ( _parsedResponse.hasOwnProperty('paging') ) {
-                                // next page exist
+                                // get all pages from current response
+                                for ( let place of _parsedResponse.data ) {
+                                    console.log('-------------');
+                                    console.log(place);
+                                    pages.addPage({
+                                        name: place.name,
+                                        category: place.category_list[0].name,
+                                        cover: place.cover.source,
+                                        description: place.description,
+                                        website: place.link,
+                                        checking: place.checkins
+                                    }, _report.id).then(()=>{
+                                        console.log('Inserted new page for report', _report.id);
+                                    }).catch(err => {
+                                        console.log(err);
+                                    });
+                                }
                             } else {
-                                // next page not exist
+                                console.log('Failed to fetch information', _report.id);
                             }
-                        } else {
-                            console.log('Failed to fetch information', _report.id);
-                        }
-                    });
+                        });
+                    }
                 }).catch(err => {
                     console.log('error', err);
                 })
+
             }
 
             // mark report as WIP true

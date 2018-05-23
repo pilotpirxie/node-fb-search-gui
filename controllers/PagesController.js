@@ -23,14 +23,11 @@ module.exports = {
             let newPageObj = {
                 createDate: (new Date()),
                 reportID: reportID,
-                pageID: pageFields.pageID,
                 name: pageFields.name,
                 category: pageFields.category,
                 cover: pageFields.cover,
                 description: pageFields.description,
                 website: pageFields.website,
-                fanCount: Number.parseInt(pageFields.fanCount),
-                talkingAbout: Number.parseInt(pageFields.talkingAbout),
                 checking: Number.parseInt(pageFields.checkins)
             };
             Page.create(newPageObj).then(page => {

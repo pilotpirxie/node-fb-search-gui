@@ -10,11 +10,6 @@ const PageSchema = new Schema({
         type: String,
         required: [true, "Report ID is required"]
     },
-    pageID: {
-        type: String,
-        required: [true, 'Page ID is required'],
-        trim: true
-    },
     name: {
         type: String,
         required: [true, 'Page name is required'],
@@ -23,14 +18,6 @@ const PageSchema = new Schema({
     category: {
         type: String,
         required: false
-    },
-    fanCount: {
-        type: Number,
-        required: [true, 'Fan count is required'],
-    },
-    talkingAbout: {
-        type: Number,
-        required: [true, 'Talkin about count is required'],
     },
     checkins: {
         type: Number,

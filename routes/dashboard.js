@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const report = require('../controllers/ReportsController');
 const user = require('../controllers/UsersController');
-const invoice = require('../controllers/InvoicesController');
 const reports = require('../controllers/ReportsController');
 const pages = require('../controllers/PagesController');
 
@@ -76,21 +75,6 @@ router.post('/settings/change', isLogged, (req, res) => {
 
 });
 
-// upgrade
-router.get('/upgrade', isLogged, (req, res) => {
-    res.render('upgrade');
-});
-
-// invoices
-router.get('/invoices', isLogged, (req, res) => {
-    invoice.getAll(req.session.profile._id).then(invoices => {
-        res.render('invoices', {invoices: invoices});
-    }).catch(err => {
-        console.log(err);
-        res.redirect('/dashboard/?info=invoices-error');
-    });
-});
-
 // help
 router.get('/help', isLogged, (req, res) => {
     res.render('help');
@@ -107,7 +91,7 @@ router.post('/report/add', isLogged, (req, res) => {
         if (req.body.keywords.replace(/[^\w.-]/g, '').length > 2){
             report.add(req.body, req.session.profile._id).then((report) => {
                 console.log(report);
-                res.redirect('/dashboard/?info=success');
+                res.redirect('/dashboard/history/?info=added');
             }).catch((err) => {
                 console.log(err);
                 res.redirect('/dashboard/?info=error');
