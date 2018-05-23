@@ -1,5 +1,7 @@
 # node-fb-search-gui
 Search over Facebook with this simply graphical user interface
+![Preview](preview.gif)
+
 
 ### Setup
 ```js
@@ -13,12 +15,16 @@ module.exports = {
         'profileFields' : ['id', 'email', 'name'] // For requesting permissions from Facebook API
     }
 };
+```
 
+```js
 // config/database.js
 module.exports = {
     "mongourl":"mongodb://user:password@host/database"
 };
+```
 
+```js
 // config/ssl.js
 module.exports = {
     key: fs.readFileSync(path.join(__dirname, 'server.key')),
@@ -26,7 +32,9 @@ module.exports = {
     requestCert: true,
     rejectUnauthorized: false
 };
+```
 
+```
 // .env
 # Default
 # production / development
@@ -42,9 +50,8 @@ FB_ACCESS_TOKEN = YOUR_ACCESS_TOKEN_HERE
 SESSION_SECRET = BYYm65nABSDB4
 ```
 
-### Dependencies:
-[Space](https://elements.envato.com/space-responsive-admin-dashboard-template-A9REUB) - unzip assets folder into public/assets
-
+### Assets:
+[Space](https://elements.envato.com/space-responsive-admin-dashboard-template-A9REUB) - purchase and unzip assets folder into public/assets
 
 ### License
 ```
