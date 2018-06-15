@@ -71,3 +71,8 @@ typings/
 
 # dotenv environment variables file
 .env
+.idea/misc.xml
+.idea/modules.xml
+.idea/node-fb-search-gui.iml
+.idea/vcs.xml
+.idea/workspace.xml
